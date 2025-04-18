@@ -1,0 +1,33 @@
+# OS 관련
+.DS_Store
+Thumbs.db
+
+# VS Code 설정
+.vscode/
+
+# 백업 및 로그
+*.log
+*.tmp
+*.swp
+
+# 빌드/배포 결과물 (선택)
+dist/
+out/
+build/
+
+# Deno 캐시 디렉토리 (선택)
+deno.lock
+.deno/
+
+# Fresh build directory
+_fresh/
+
+# npm dependencies(혹시 설치된 경우)
+node_modules/
+
+# dotenv environment variable files
+.env
+.env.*
+
+# Fresh 개발 환경에서 임시 생성 파일
+twind.config.ts.d.ts
