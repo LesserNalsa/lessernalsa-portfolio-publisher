@@ -6,6 +6,10 @@ import presetTailwind from "twind-preset-tailwind";
 export default {
   // Tailwind의 기본 설정을 불러오는 프리셋
   presets: [presetTailwind(), presetAutoprefix()],
+  content: [
+    "./routes/**/*.{tsx,ts}",
+    "./components/**/*.{tsx,ts}",
+  ],
   theme: {
     extend: {
       colors: {
