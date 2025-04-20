@@ -1,4 +1,4 @@
-import { h } from 'preact';
+import Header from "../components/Header.tsx";
 import { type PageProps } from "$fresh/server.ts";
 
 export default function App({ Component }: PageProps) {
@@ -12,6 +12,7 @@ export default function App({ Component }: PageProps) {
         <link rel="stylesheet" href="/styles.css" />
       </head>
       <body class="bg-white text-gray-800 font-sans">
+        <Header />
         <Component />
       </body>
     </html>
