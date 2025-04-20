@@ -1,4 +1,5 @@
 import Header from "../components/Header.tsx";
+import Footer from "../components/Footer.tsx";
 import { type PageProps } from "$fresh/server.ts";
 
 export default function App({ Component }: PageProps) {
@@ -13,7 +14,10 @@ export default function App({ Component }: PageProps) {
       </head>
       <body class="bg-white text-gray-800 font-sans">
         <Header />
-        <Component />
+        <main class="min-h-[calc(100vh-150px)]">
+          <Component />
+        </main>
+        <Footer />
       </body>
     </html>
   );
