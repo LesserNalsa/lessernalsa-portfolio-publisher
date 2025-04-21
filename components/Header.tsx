@@ -1,5 +1,3 @@
-import { h } from "preact";
-
 export default function Header() {
     return (
         <header class="w-full px-6 py-4 flex items-center justify-between bg-white text-lessernavy shadow-md">
@@ -8,7 +6,7 @@ export default function Header() {
                     LESSERNALSA
                 </a>
             </h1>
-            <nav class="flex items-center space-x-4">
+            <nav class="flex gap-4 text-sm sm:text-base">
                 <a href="/projects" class="hover:text-mint transition">
                     Projects
                 </a>

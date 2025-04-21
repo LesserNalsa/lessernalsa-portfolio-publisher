@@ -1,14 +1,9 @@
-// styles/tailwind.config.ts
-import { Options } from "$fresh/plugins/twind.ts";
-import presetAutoprefix from "twind-preset-autoprefix";
-import presetTailwind from "twind-preset-tailwind";
+import { type Config } from "tailwindcss";
 
 export default {
-  // Tailwind의 기본 설정을 불러오는 프리셋
-  presets: [presetTailwind(), presetAutoprefix()],
   content: [
-    "./routes/**/*.{tsx,ts}",
-    "./components/**/*.{tsx,ts}",
+    "./routes/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}"
   ],
   theme: {
     extend: {
@@ -18,11 +13,11 @@ export default {
         champagne: "#f7e8b6",
         lightgold: "#f5deb3",
         burgundy: "#7f1d1d",
-        sky: "#cfe8fc",
+        sky: "#cfe8fc"
       },
       fontFamily: {
-        sans: ["Inter", "sans-serif"],
-      },
-    },
-  },
-} as unknown as Options;
+        sans: ["Inter", "sans-serif"]
+      }
+    }
+  }
+} satisfies Config;

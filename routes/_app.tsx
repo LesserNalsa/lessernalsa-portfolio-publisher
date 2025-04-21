@@ -10,11 +10,11 @@ export default function App({ Component }: PageProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>LesserNalsa</title>
         <link rel="icon" href="/images/favicon.ico" />
-        <link rel="stylesheet" href="/styles.css" />
+        <link rel="stylesheet" href="/style.css" />
       </head>
-      <body class="bg-white text-gray-800 font-sans">
+      <body class="bg-white text-lessernavy font-sans">
         <Header />
-        <main class="min-h-[calc(100vh-150px)]">
+        <main class="max-w-4xl mx-auto px-4">
           <Component />
         </main>
         <Footer />
