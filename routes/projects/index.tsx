@@ -2,6 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { extract } from "$std/front_matter/yaml.ts";
 import MarkdownIt from "https://esm.sh/markdown-it@13.0.1"
 import { basename } from "$std/path/mod.ts";
+import Layout from "../../components/Layout.tsx";
 
 type Project = {
     slug: string;
@@ -41,7 +42,7 @@ export const handler: Handlers<Project[]> = {
 
 export default function ProjectPage({ data }: PageProps<Project[]>) {
     return (
-        <main class="p-8 max-w-4xl mx-auto">
+        <Layout>
             <h1 class="text-3xl font-bold mb-6">📂 프로젝트 노트</h1>
             <ul class="grid gap-6">
                 {data.map((project) => (
@@ -75,6 +76,8 @@ export default function ProjectPage({ data }: PageProps<Project[]>) {
                     </li>
                 ))}
             </ul>
-        </main>
+        </Layout>
+        // <main class="p-8 max-w-4xl mx-auto">
+        // </main>
     );
 }

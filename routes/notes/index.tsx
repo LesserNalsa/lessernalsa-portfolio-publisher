@@ -1,6 +1,7 @@
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { extract } from "$std/front_matter/yaml.ts";
 import { basename } from "$std/path/mod.ts";
+import Layout from "../../components/Layout.tsx";
 
 type NoteMeta = {
     slug: string;
@@ -35,7 +36,7 @@ export const handler: Handlers<NoteMeta[]> = {
 
 export default function NotesPage({ data}: PageProps<NoteMeta[]>) {
     return (
-        <main class="p-8 max-w-3xl mx-auto">
+        <Layout>
             <h1 class="text-3xl font-bold mb-6">📚 퍼블리싱된 노트</h1>
             <ul class="grid gap-6">
                 {data.map((note) => (
@@ -52,6 +53,9 @@ export default function NotesPage({ data}: PageProps<NoteMeta[]>) {
                     </li>
                 ))}
             </ul>
-        </main>
+        </Layout>
+        // <main class="p-8 max-w-3xl mx-auto">
+            
+        // </main>
     );
 }

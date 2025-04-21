@@ -1,5 +1,3 @@
-import { h } from "preact";
-
 export default function Hero() {
     return (
         <section class="flex flex-col items-center justify-center text-center py-24 px-6 bg-lessernavy text-champagne">

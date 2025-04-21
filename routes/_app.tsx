@@ -13,11 +13,12 @@ export default function App({ Component }: PageProps) {
         <link rel="stylesheet" href="/style.css" />
       </head>
       <body class="bg-white text-lessernavy font-sans">
-        <Header />
+        <Component />
+        {/* <Header />
         <main class="max-w-4xl mx-auto px-4">
           <Component />
         </main>
-        <Footer />
+        <Footer /> */}
       </body>
     </html>
   );

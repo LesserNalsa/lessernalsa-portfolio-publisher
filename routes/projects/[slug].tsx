@@ -2,6 +2,7 @@ import { Handlers, PageProps } from "$fresh/server.ts";
 import { extract } from "$std/front_matter/yaml.ts";
 import { basename } from "$std/path/mod.ts";
 import MarkdownIT from "https://esm.sh/markdown-it@13.0.1";
+import Layout from "../../components/Layout.tsx";
 
 type Project = {
     title: string;
@@ -42,7 +43,7 @@ export const handler: Handlers<Project> = {
 
 export default function ProjectPage({data}: PageProps<Project>) {
     return (
-        <main class="p-8 max-w-3xl mx-auto">
+        <Layout>
             <h1 class="text-3xl font-bold mb-2 text-lessernavy">{data.title}</h1>
             <p class="text-sm text-gray-500">{data.created}</p>
 
@@ -68,6 +69,33 @@ export default function ProjectPage({data}: PageProps<Project>) {
                     </a>
                 ))}
             </div>
-        </main>
+        </Layout>
+        // <main class="p-8 max-w-3xl mx-auto">
+        //     <h1 class="text-3xl font-bold mb-2 text-lessernavy">{data.title}</h1>
+        //     <p class="text-sm text-gray-500">{data.created}</p>
+
+        //     <div class="flex gap-2 mt-2 mb-6">
+        //         {data.tags.map((tag) =>  (
+        //             <span class="bg-champagne text-sm px-2 py-0.5 rounded text-gray-800">#{tag}</span>
+        //         ))}
+        //     </div>
+
+        //     <div 
+        //         class="prose max-w-none"
+        //         dangerouslySetInnerHTML={{ __html: data.html }} 
+        //     />
+
+        //     <div class="flex gap-4">
+        //         {data.links.map((link) => (
+        //             <a
+        //                 href={link.url}
+        //                 class="text-sm underline text-mint hover:text-lessernavy"
+        //                 target="_blank"
+        //             >
+        //                 {link.label}
+        //             </a>
+        //         ))}
+        //     </div>
+        // </main>
     );
 }
