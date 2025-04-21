@@ -1,6 +1,8 @@
 import { type Config } from "tailwindcss";
+import typography from "https://esm.sh/@tailwindcss/typography@0.5.10";
 
 export default {
+  plugins: [typography],
   content: [
     "./routes/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}"
