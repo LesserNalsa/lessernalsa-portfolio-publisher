@@ -31,9 +31,9 @@ export const handler: Handlers<Note> = {
             const html = mdParser.render(body);
 
             return ctx.render({
-                title: attrs.title ?? slug,
-                created: attrs.created ?? "",
-                tags: attrs.tags ?? [],
+                title: attrs.title as string ?? slug,
+                created: attrs.created as string?? "",
+                tags: attrs.tags as string[] ?? [],
                 html,
             })
         }catch (_) {

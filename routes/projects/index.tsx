@@ -8,6 +8,7 @@ type Project = {
     slug: string;
     title: string;
     created: string;
+    thumbnail?: string;
     tags: string[];
     links: {label: string; url: string} [];
     excerpt: string;
@@ -28,10 +29,11 @@ export const handler: Handlers<Project[]> = {
             
             projects.push({
                 slug: basename(entry.name, ".md"),
-                title: attrs.title ?? entry.name,
-                created: attrs.created ?? "",
-                tags: attrs.tags ?? [],
-                links: attrs.links ?? [],
+                title: attrs.title as string ?? entry.name,
+                created: attrs.created as string?? "",
+                thumbnail: attrs.thumbnail as string ?? null,
+                tags: attrs.tags as string[] ?? [],
+                links: attrs.links as {label:string, url:string}[] ?? [],
                 excerpt: mdParser.render(body).slice(0, 300), // HTML 요약
             });
         }
@@ -47,6 +49,13 @@ export default function ProjectPage({ data }: PageProps<Project[]>) {
             <ul class="grid gap-6">
                 {data.map((project) => (
                     <li class="p-4 border rounded shadow hover:shadow-md transition">
+                        {project.thumbnail && (
+                            <img
+                                src={project.thumbnail}
+                                alt={project.title}
+                                class="w-full h-48 object-cover mb-3 rounded"
+                            />
+                        )}
                         <a href={`/projects/${project.slug}`} class="text-lx font-semibold text-lessernavy hover:text-mint">
                             {project.title}
                         </a>

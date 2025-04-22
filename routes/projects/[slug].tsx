@@ -5,11 +5,13 @@ import MarkdownIT from "https://esm.sh/markdown-it@13.0.1";
 import Layout from "../../components/Layout.tsx";
 import { Head } from "$fresh/runtime.ts";
 import HeadMeta from "../../components/HeadMeta.tsx";
+import { stringToIdentifier } from "$fresh/src/server/init_safe_deps.ts";
 
 type Project = {
     title: string;
     created: string;
     tags: string[];
+    thumbnail?: string;
     links: {label: string; url: string}[];
     html: string;
 };
@@ -31,10 +33,11 @@ export const handler: Handlers<Project> = {
             const html = mdParser.render(body);
 
             return ctx.render({
-                title: attrs.title ?? slug,
-                created: attrs.created ?? "",
-                tags: attrs.tags ?? [],
-                links: attrs.links ?? [],
+                title: attrs.title as string ?? slug,
+                created: attrs.created as string ?? "",
+                tags: attrs.tags as string[] ?? [],
+                thumbnail: attrs.thumbnail as string ?? null,
+                links: attrs.links as {label: string, url: string}[] ?? [],
                 html,
             })
         }catch (_) {
@@ -50,11 +53,18 @@ export default function ProjectPage({data}: PageProps<Project>) {
                 <HeadMeta
                     title={data.title}
                     description={data.html.slice(0, 150).replace(/<[^>]+>/g, "")}
-                    url={`https://lessernalsa.dev/projects/${ctx.params.slug}`}
-                    image={`https://lessernalsa.dev/static/img/${ctx.params.slug}.png`} // 있을 경우
+                    url={`https://lessernalsa.dev/projects/${data.title}`}
+                    image={`https://lessernalsa.dev/static/images/${data.title}.png`} // 있을 경우
                 />
             </Head>
             <Layout>
+                {data.thumbnail && (
+                    <img
+                        src={data.thumbnail}
+                        alt={data.title}
+                        class="w-full h-72 object-cover mb-6 rounded"
+                    />
+                )}
                 <h1 class="text-3xl font-bold mb-2 text-lessernavy">{data.title}</h1>
                 <p class="text-sm text-gray-500">{data.created}</p>
 

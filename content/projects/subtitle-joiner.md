@@ -2,6 +2,7 @@
 title: 자막 합치기 툴
 published: true
 created: 2025-03-05
+thumbnail: /images/subtitle-joiner.png
 tags: [rust, ffmpeg, gui]
 links:
   - label: GitHub
