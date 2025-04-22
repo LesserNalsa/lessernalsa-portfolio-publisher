@@ -14,8 +14,15 @@ type Project = {
     excerpt: string;
 };
 
-export const handler: Handlers<Project[]> = {
-    async GET(_, ctx) {
+type Data = {
+    projects: Project[];
+    selectedTag: string | null;
+}
+
+export const handler: Handlers<Data> = {
+    async GET(req, ctx) {
+        const tag = new URL(req.url).searchParams.get("tag");
+
         const projectsDir = "content/projects";
         const projects: Project[] = [];
         const mdParser = new MarkdownIt();
@@ -26,28 +33,40 @@ export const handler: Handlers<Project[]> = {
             const text = await Deno.readTextFile(`${projectsDir}/${entry.name}`);
             const { attrs, body } = extract(text);
             if (attrs.published !== true) continue;
+
+            const tags = attrs.tags as string[] ?? [];
+
+            if  (tag && !tags.includes(tag)) continue;
             
             projects.push({
                 slug: basename(entry.name, ".md"),
                 title: attrs.title as string ?? entry.name,
                 created: attrs.created as string?? "",
                 thumbnail: attrs.thumbnail as string ?? null,
-                tags: attrs.tags as string[] ?? [],
+                tags,
                 links: attrs.links as {label:string, url:string}[] ?? [],
                 excerpt: mdParser.render(body).slice(0, 300), // HTML 요약
             });
         }
 
-        return ctx.render(projects);
+        return ctx.render({projects, selectedTag: tag});
     },
 };
 
-export default function ProjectPage({ data }: PageProps<Project[]>) {
+export default function ProjectPage({ data }: PageProps<Data>) {
+    const { projects, selectedTag } = data;
     return (
         <Layout>
             <h1 class="text-3xl font-bold mb-6">📂 프로젝트 노트</h1>
+            {data.selectedTag && (
+                <div class="mb-4">
+                    <span class="mb-4 text-gray-600">Tag: </span>
+                    <span class="inline-block bg-mint text-white px-2 py-0.5 rounded text-sm font-medium">{data.selectedTag}</span>
+                    <a href='/projects' class="ml-4 text-sm text-blue-500 underline">모두 보기</a>
+                </div>
+            )}
             <ul class="grid gap-6">
-                {data.map((project) => (
+                {projects.map((project) => (
                     <li class="p-4 border rounded shadow hover:shadow-md transition">
                         {project.thumbnail && (
                             <img
@@ -61,11 +80,16 @@ export default function ProjectPage({ data }: PageProps<Project[]>) {
                         </a>
                         <p class="text-sm text-gray-500 mt-1">{project.created}</p>
 
-                        <div class="flex flex-wrap gap-2 mt-2">
-                            {project.tags.map((tag) =>  (
-                                <span class="bg-champagne text-sm px-2 py-0.5 rounded text-gray-800">#{tag}</span>
-                            ))}
-                        </div>
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                {project.tags.map((tag) =>  (
+                                    <a 
+                                        href={`/projects?tag=${encodeURIComponent(tag)}`}
+                                        class="bg-champagne text-sm px-2 py-0.5 rounded text-gray-800 hover:bg-yellow-200"
+                                    >
+                                        #{tag}
+                                    </a>
+                                ))}
+                            </div>
 
                         <div
                             class="prose max-w-none text-sm text-gray-700"

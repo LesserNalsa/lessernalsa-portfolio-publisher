@@ -10,6 +10,8 @@ import * as $notes_slug_ from "./routes/notes/[slug].tsx";
 import * as $notes_index from "./routes/notes/index.tsx";
 import * as $projects_slug_ from "./routes/projects/[slug].tsx";
 import * as $projects_index from "./routes/projects/index.tsx";
+import * as $tags_tag_ from "./routes/tags/[tag].tsx";
+import * as $tags_index from "./routes/tags/index.tsx";
 
 import type { Manifest } from "$fresh/server.ts";
 
@@ -23,6 +25,8 @@ const manifest = {
     "./routes/notes/index.tsx": $notes_index,
     "./routes/projects/[slug].tsx": $projects_slug_,
     "./routes/projects/index.tsx": $projects_index,
+    "./routes/tags/[tag].tsx": $tags_tag_,
+    "./routes/tags/index.tsx": $tags_index,
   },
   islands: {},
   baseUrl: import.meta.url,
