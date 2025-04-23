@@ -4,6 +4,7 @@ published: true
 created: 2025-03-05
 thumbnail: /images/subtitle-joiner.png
 tags: [rust, ffmpeg, gui]
+type: tool
 links:
   - label: GitHub
     url: https://github.com/lessernalsa/subtitle-joiner
